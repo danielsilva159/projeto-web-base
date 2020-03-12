@@ -2,6 +2,7 @@ package com.stefanini.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -82,7 +83,16 @@ public class Pessoa implements Serializable{
 	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY)
 	@JoinColumn(name = "CO_SEQ_PESSOA",referencedColumnName = "CO_SEQ_PESSOA")
-	private Set<Endereco> enderecos;
+	private List<Endereco> enderecos;
+
+	public List<Endereco> getEnderecos() {
+		return enderecos;
+	}
+
+
+	public void setEnderecos(List<Endereco> enderecos) {
+		this.enderecos = enderecos;
+	}
 
 	/**
 	 * Mapeamento de Perfis Unidirecional
@@ -91,8 +101,8 @@ public class Pessoa implements Serializable{
 	@ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	@JoinTable(
 			name = "TB_PESSOA_PERFIL",
-			joinColumns = {@JoinColumn(name = "CO_SEQ_PESSOA")},
-			inverseJoinColumns = {@JoinColumn(name = "CO_SEQ_PERFIL")}
+			/*Lado dominante*/joinColumns = {@JoinColumn(name = "CO_SEQ_PESSOA")},
+			/*Lado dominado*/inverseJoinColumns = {@JoinColumn(name = "CO_SEQ_PERFIL")}
 	)
 	private Set<Perfil> perfils;
 	/**
@@ -124,16 +134,6 @@ public class Pessoa implements Serializable{
 		this.dataNascimento = dataNascimento;
 		this.situacao = situacao;
 	}
-
-
-	public Set<Endereco> getEnderecos() {
-		return enderecos;
-	}
-
-	public void setEnderecos(Set<Endereco> enderecos) {
-		this.enderecos = enderecos;
-	}
-
 
 	public Long getId() {
 		return id;

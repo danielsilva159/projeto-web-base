@@ -55,6 +55,7 @@ public class PessoaServico implements Serializable {
 	 * Remover uma pessoa pelo id
 	 */
 //	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public void remover(@Valid Long id) {
 		dao.remover(id);
 	}
