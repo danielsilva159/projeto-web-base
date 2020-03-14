@@ -62,7 +62,7 @@ public class Pessoa implements Serializable{
 	 * Email da Pessoa
 	 */
 	@NotNull
-	@Column(name = "DS_EMAIL")
+	@Column(name = "DS_EMAIL", unique = true)
 	private String email;
 	/**
 	 * Data de Nascimento 

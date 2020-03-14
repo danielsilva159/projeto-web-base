@@ -1,6 +1,7 @@
 package com.stefanini.servico;
 
 import com.stefanini.dao.PessoaDao;
+import com.stefanini.model.Endereco;
 import com.stefanini.model.Pessoa;
 import com.stefanini.util.IGenericService;
 
@@ -23,15 +24,12 @@ import java.util.Optional;
  * @author joaopedromilhome
  *
  */
-@Stateless
-@TransactionManagement(TransactionManagementType.CONTAINER)
-@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-public class PessoaServico implements Serializable {
+
+public class PessoaServico implements IGenericService<Pessoa, Long> {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
 	@Inject
 	private PessoaDao dao;
 
@@ -46,7 +44,7 @@ public class PessoaServico implements Serializable {
 	/**
 	 * Atualizar o dados de uma pessoa
 	 */
-//	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public Pessoa atualizar(@Valid Pessoa entity) {
 		return dao.atualizar(entity);
 	}

@@ -13,7 +13,9 @@ import javax.inject.Inject;
 import javax.validation.Valid;
 
 import com.stefanini.dao.PerfilDao;
+import com.stefanini.model.Endereco;
 import com.stefanini.model.Perfil;
+import com.stefanini.util.IGenericService;
 
 /**
  * 
@@ -22,17 +24,11 @@ import com.stefanini.model.Perfil;
  * @author Daniel Ferreira da Silva
  *
  */
-@Stateless
-@TransactionManagement(TransactionManagementType.CONTAINER)
-@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 
-public class PerfilServico implements Serializable {
+public class PerfilServico implements IGenericService<Perfil, Long> {
 	
 	
-		/**
-		 * 
-		 */
-		private static final long serialVersionUID = 1L;
+
 		@Inject
 		private PerfilDao dao;
 
@@ -40,7 +36,7 @@ public class PerfilServico implements Serializable {
 		 * Salvar o tipo de perfil
 		 */
 		@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-		public Perfil salvar(Perfil perfil) {
+		public Perfil salvar(@Valid Perfil perfil) {
 			
 			return dao.salvar(perfil);
 		}
